@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>404 :: NODE</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Courier New", Courier, monospace;
+      background: #000;
+      color: #32ff94;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .glitch {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.05) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      animation: flicker 0.15s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 0.03; }
+      50% { opacity: 0.1; }
+    }
+
+    .terminal {
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid #32ff94;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: left;
+      width: 90%;
+      max-width: 600px;
+      z-index: 1;
+      box-shadow: 0 0 30px #00ffcc44;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      background: #000;
+      color: #32ff94;
+      border: 1px solid #32ff94;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 16px;
+      margin-bottom: 20px;
+      caret-color: #32ff94;
+    }
+
+    button {
+      background-color: #32ff94;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #25c77e;
+    }
+
+    .output {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #ff4444;
+    }
+
+    .typing-line::after {
+      content: "|";
+      animation: blink 0.8s infinite;
+      color: #32ff94;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .sbay-colors {
+      margin-top: 30px;
+      font-size: 12px;
+    }
+
+    .sbay-colors span {
+      padding: 3px 7px;
+      border-radius: 4px;
+      margin-right: 5px;
+    }
+
+    .S { background-color: #4da0d8; color: #000; }
+    .B { background-color: #853eed; color: #fff; }
+    .A { background-color: #db2f66; color: #fff; }
+    .Y { background-color: #ec784d; color: #000; }
+  </style>
+</head>
+<body>
+  <div class="glitch"></div>
+  <div class="terminal">
+    <h2 class="typing-line" id="typingLine"></h2>
+    <label for="keyInput">> DECRYPT PHRASE</label>
+    <input type="text" id="keyInput" placeholder="input required">
+    <button onclick="checkKey()">RUN</button>
+    <div id="output" class="output"></div>
+
+    <div class="sbay-colors">
+      <span class="S">S</span>
+      <span class="B">B</span>
+      <span class="A">A</span>
+      <span class="Y">Y</span>
+    </div>
+  </div>
+
+  <script>
+    const encodedKey = "SVRTSU5USEVDT0xPUg==";
+    const encodedUrl = "aHR0cHM6Ly95b3V0dS5iZS9sNTViVm5WVGhkZz9mZWF0dXJlPXNoYXJlZA==";
+
+    function checkKey() {
+      const input = document.getElementById("keyInput").value.trim().toUpperCase();
+      const key = atob(encodedKey);
+      const url = atob(encodedUrl);
+      const output = document.getElementById("output");
+
+      if (input === key) {
+        output.style.color = "#32ff94";
+        output.textContent = "> accepted";
+        setTimeout(() => {
+          window.location.href = url;
+        }, 1500);
+      } else {
+        output.style.color = "#ff4444";
+        output.textContent = "> !error: keyword mismatch";
+      }
+    }
+
+    function typeLine(text, elementId, delay = 40) {
+      const el = document.getElementById(elementId);
+      let index = 0;
+      const interval = setInterval(() => {
+        el.textContent += text[index];
+        index++;
+        if (index >= text.length) clearInterval(interval);
+      }, delay);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const line = "… -… .- -.— teaser";
+      typeLine(line, "typingLine", 40);
+    });
+
+    console.log("%c404-A", "color: #888; font-family: Courier New;");
+    console.log("%c> PHASE ONE ONLINE", "color: #32ff94; font-family: Courier New;");
+    console.log("%c> Not everything should be decoded.", "color: #853eed; font-family: Courier New;");
+    console.log("%c> #4da0d8 #853eed #db2f66 #ec784d", "color: #ff4444; font-family: Courier New;");
+  </script>
+</body>
+</html>
